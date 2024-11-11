@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Mulai Tes</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link rel="icon" href="img/emotispace_logo.png">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+
+
+    <!-- CSS Libraries -->
+
+    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/test.css" rel="stylesheet">
+</head>
+
+<script>
+    function hitungHasil() {
+        const formPart2 = document.getElementById('eqQuizPart2');
+        const formData = new FormData(formPart2);
+
+        const bobotJawaban = {
+            "1": 3, // Bobot untuk "Sangat Setuju" (Tinggi)
+            "2": 2, // Bobot untuk "Setuju" (Sedang)
+            "3": 1, // Bobot untuk "Netral" (Sedang)
+            "4": 0  // Bobot untuk "Tidak Setuju" (Rendah)
+        };
+
+        let totalScore = 0;
+
+        // Menghitung total nilai berdasarkan bobot jawaban
+        for (const [key, value] of formData.entries()) {
+            // Pastikan bahwa nilai input radio sesuai dengan bobotJawaban
+            if (bobotJawaban.hasOwnProperty(value)) {
+                totalScore += bobotJawaban[value];
+            }
+        }
+
+        // Menentukan tingkat stres berdasarkan total nilai
+        let tingkatStres = '';
+        if (totalScore >= 3) {
+            tingkatStres = 'Tinggi';
+        } else if (totalScore >= 2) {
+            tingkatStres = 'Sedang';
+        } else {
+            tingkatStres = 'Rendah';
+        }
+
+        // Menyusun jawaban berdasarkan tingkat stres
+        let jawaban = '';
+        switch (tingkatStres) {
+            case 'Rendah':
+                jawaban = '';
+                break;
+            case 'Sedang':
+                jawaban = '';
+                break;
+            case 'Tinggi':
+                jawaban = '';
+                break;
+            default:
+                jawaban = '';
+                break;
+        }
+
+        // Menampilkan hasil dan penjelasan menggunakan SweetAlert
+        Swal.fire({
+            title: `Tingkat Emosi: ${tingkatStres}`,
+            text: `${jawaban}`,
+            icon: tingkatStres === 'Tinggi' ? 'warning' : 'info', // Gunakan ikon 'warning' untuk tingkat stres tinggi, dan 'info' untuk lainnya
+            confirmButtonText: 'Saran untuk tingkat emosional'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Pindah halaman berdasarkan tingkat stres
+                if (tingkatStres === 'Rendah') {
+                    window.location.href = 'edukasiblog3.php'; // Ganti dengan URL untuk emosi rendah
+                } else if (tingkatStres === 'Sedang') {
+                    window.location.href = 'edukasiblog2.php'; // Ganti dengan URL untuk emosi sedang
+                } else if (tingkatStres === 'Tinggi') {
+                    window.location.href = 'edukasiblog.php'; // Ganti dengan URL untuk emosi tinggi
+                }
+            }
+        });
+    }
+
+
+
+
+
+    function showNextPart(currentPartId, nextPartId) {
+        var currentPart = document.getElementById(currentPartId);
+        var nextPart = document.getElementById(nextPartId);
+
+        currentPart.style.display = "none";
+        nextPart.style.display = "block";
+    }
+
+
+    // Gunakan fungsi ini untuk mengendalikan peralihan bagian kuis yang berbeda
+    document.getElementById('eqQuizPart1').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart1', 'quizPart2');
+    }
+
+    document.getElementById('eqQuizPart2').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart2', 'quizPart3');
+    }
+
+    document.getElementById('eqQuizPart3').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart3', 'quizPart4');
+    }
+    document.getElementById('eqQuizPart4').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart4', 'quizPart5');
+    }
+    document.getElementById('eqQuizPart5').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart5', 'quizPart6');
+    }
+    document.getElementById('eqQuizPart6').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart6', 'quizPart7');
+    }
+    document.getElementById('eqQuizPart7').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart7', 'quizPart8');
+    }
+    document.getElementById('eqQuizPart8').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart8', 'quizPart9');
+    }
+    document.getElementById('eqQuizPart9').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart9', 'quizPart10');
+    }
+    document.getElementById('eqQuizPart10').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart10', 'quizPart11');
+    }
+    document.getElementById('eqQuizPart11').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart11', 'quizPart12');
+    }
+    document.getElementById('eqQuizPart12').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart12', 'quizPart13');
+    }
+    document.getElementById('eqQuizPart13').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart13', 'quizPart12');
+    }
+    document.getElementById('eqQuizPart14').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart14', 'quizPart15');
+    }
+    document.getElementById('eqQuizPart15').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart15', 'quizPart16');
+    }
+    document.getElementById('eqQuizPart16').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart16', 'quizPart17');
+    }
+    document.getElementById('eqQuizPart17').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart17', 'quizPart18');
+    }
+    document.getElementById('eqQuizPart18').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart18', 'quizPart19');
+    }
+    document.getElementById('eqQuizPart19').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart19', 'quizPart20');
+    }
+    document.getElementById('eqQuizPart20').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart20', 'quizPart21');
+    }
+    document.getElementById('eqQuizPart21').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart21', 'quizPart22');
+    }
+    document.getElementById('eqQuizPart22').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart22', 'quizPart23');
+    }
+    document.getElementById('eqQuizPart23').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart23', 'quizPart24');
+    }
+    document.getElementById('eqQuizPart24').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart24', 'quizPart25');
+    }
+    document.getElementById('eqQuizPart25').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart25', 'quizPart26');
+    }
+    document.getElementById('eqQuizPart26').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart26', 'quizPart27');
+    }
+    document.getElementById('eqQuizPart27').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart27', 'quizPart28');
+    }
+    document.getElementById('eqQuizPart28').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart28', 'quizPart29');
+    }
+    document.getElementById('eqQuizPart29').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart29', 'quizPart30');
+    }
+    document.getElementById('eqQuizPart30').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart29', 'quizPart30');
+    }
+    document.getElementById('eqQuizPart31').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart31', 'quizPart32');
+    }
+    document.getElementById('eqQuizPart32').onsubmit = function (event) {
+        event.preventDefault();
+        showNextPart('quizPart32', 'quizPart33');
+    }  
+</script>
+
+<body>
+
+    <div class="container-fluid hero-header">
+
+        <div class="left-image">
+            <img src="/img/iq" alt="">
+
+            <h1 style="align-items: center; text-align:center;">Tes Kecerdasan Emosional</h1>
+            <div id="quizPart1" class="card">
+                <form id="eqQuizPart1" onsubmit="event.preventDefault();  showNextPart('quizPart1', 'quizPart2');">
+                    <p> 1. Saya tahu kapan harus berbicara tentang masalah pribadi saya
+                        kepada orang lain.
+                    </p>
+                    <input type="radio" name="q1" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q1" value="2"> Setuju <br>
+                    <input type="radio" name="q1" value="3"> Netral <br>
+                    <input type="radio" name="q1" value="4"> Tidak Setuju <br>
+
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+
+            <div id="quizPart2" class="card" style="display: none;">
+                <form id="eqQuizPart2" onsubmit="event.preventDefault(); showNextPart('quizPart2', 'quizPart3');">
+                    <p>2. Ketika saya dihadapkan dengan rintangan, saya ingat saat saya
+                        menghadapi rintangan yang sama dan teratasi
+                    </p>
+                    <input type="radio" name="q2" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q2" value="2"> Setuju <br>
+                    <input type="radio" name="q2" value="3"> Netral <br>
+                    <input type="radio" name="q2" value="4"> Tidak Setuju <br>
+
+                    <!-- Tambahan tombol "Sebelumnya" -->
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart2', 'quizPart1')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+
+            <div id="quizPart3" class="card" style="display: none;">
+                <form id="eqQuizPart3" onsubmit="event.preventDefault(); showNextPart('quizPart3', 'quizPart4');">
+                    <p>3. Saya berharap saya akan berhasil dengan baik pada sebagian
+                        besar hal yang saya coba.</p>
+                    <input type="radio" name="q3" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q3" value="2"> Setuju <br>
+                    <input type="radio" name="q3" value="3"> Netral <br>
+                    <input type="radio" name="q3" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart3', 'quizPart2')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart4" class="card" style="display: none;">
+                <form id="eqQuizPart4" onsubmit="event.preventDefault(); showNextPart('quizPart4', 'quizPart5');">
+                    <p>4. Orang lain merasa mudah untuk percaya pada saya</p>
+                    <input type="radio" name="q4" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q4" value="2"> Setuju <br>
+                    <input type="radio" name="q4" value="3"> Netral <br>
+                    <input type="radio" name="q4" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart4', 'quizPart3')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart5" class="card" style="display: none;">
+                <form id="eqQuizPart5" onsubmit="event.preventDefault(); showNextPart('quizPart5', 'quizPart6');">
+                    <p>5. Saya merasa sulit untuk memahami pesan non-verbal orang lain</p>
+                    <input type="radio" name="q5" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q5" value="2"> Setuju <br>
+                    <input type="radio" name="q5" value="3"> Netral <br>
+                    <input type="radio" name="q5" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart5', 'quizPart4')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart6" class="card" style="display: none;">
+                <form id="eqQuizPart6" onsubmit="event.preventDefault(); showNextPart('quizPart6', 'quizPart7');">
+                    <p>6. Beberapa peristiwa besar dalam hidup saya telah mengarahkan
+                        saya untuk mengevaluasi kembali apa yang penting dan tidak
+                        penting
+                    </p>
+                    <input type="radio" name="q6" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q6" value="2"> Setuju <br>
+                    <input type="radio" name="q6" value="3"> Netral <br>
+                    <input type="radio" name="q6" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart6', 'quizPart5')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart7" class="card" style="display: none;">
+                <form id="eqQuizPart7" onsubmit="event.preventDefault(); showNextPart('quizPart7', 'quizPart8');">
+                    <p>7. Ketika suasana hati saya berubah, saya melihat kemungkinankemungkinan baru</p>
+                    <input type="radio" name="q7" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q7" value="2"> Setuju <br>
+                    <input type="radio" name="q7" value="3"> Netral <br>
+                    <input type="radio" name="q7" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart7', 'quizPart6')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart8" class="card" style="display: none;">
+                <form id="eqQuizPart8" onsubmit="event.preventDefault(); showNextPart('quizPart8', 'quizPart9');">
+                    <p>8. Gairah adalah salah satu hal yang membuat hidup saya layak
+                        dijalani. </p>
+                    <input type="radio" name="q8" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q8" value="2"> Setuju <br>
+                    <input type="radio" name="q8" value="3"> Netral <br>
+                    <input type="radio" name="q8" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart8', 'quizPart7')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart9" class="card" style="display: none;">
+                <form id="eqQuizPart9" onsubmit="event.preventDefault(); showNextPart('quizPart9', 'quizPart10');">
+                    <p>9. Saya menyadari emosi saya ketika saya mengalaminya
+                    </p>
+                    <input type="radio" name="q9" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q9" value="2"> Setuju <br>
+                    <input type="radio" name="q9" value="3"> Netral <br>
+                    <input type="radio" name="q9" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart9', 'quizPart8')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart10" class="card" style="display: none;">
+                <form id="eqQuizPart10" onsubmit="event.preventDefault(); showNextPart('quizPart10', 'quizPart11');">
+                    <p>10. Saya mengharapkan hal-hal baik terjadi</p>
+                    <input type="radio" name="q10" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q10" value="2"> Setuju <br>
+                    <input type="radio" name="q10" value="3"> Netral <br>
+                    <input type="radio" name="q10" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart10', 'quizPart9')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart11" class="card" style="display: none;">
+                <form id="eqQuizPart11" onsubmit="event.preventDefault(); showNextPart('quizPart11', 'quizPart12');">
+                    <p>11. Saya suka berbagi emosi dengan orang lain</p>
+                    <input type="radio" name="q11" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q11" value="2"> Setuju <br>
+                    <input type="radio" name="q11" value="3"> Netral <br>
+                    <input type="radio" name="q11" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart11', 'quizPart10')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart12" class="card" style="display: none;">
+                <form id="eqQuizPart12" onsubmit="event.preventDefault(); showNextPart('quizPart12', 'quizPart13');">
+                    <p>12. Ketika saya mengalami perasaan positif, saya tahu bagaimana
+                        membuatnya bertahan lama</p>
+                    <input type="radio" name="q12" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q12" value="2"> Setuju <br>
+                    <input type="radio" name="q12" value="3"> Netral <br>
+                    <input type="radio" name="q12" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart12', 'quizPart11')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart13" class="card" style="display: none;">
+                <form id="eqQuizPart13" onsubmit="event.preventDefault(); showNextPart('quizPart13', 'quizPart14');">
+                    <p>13. Mengadakan acara yang orang lain nikmati</p>
+                    <input type="radio" name="q13" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q13" value="2"> Setuju <br>
+                    <input type="radio" name="q13" value="3"> Netral <br>
+                    <input type="radio" name="q13" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart13', 'quizPart12')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart14" class="card" style="display: none;">
+                <form id="eqQuizPart14" onsubmit="event.preventDefault(); showNextPart('quizPart14', 'quizPart15');">
+                    <p>14. Saya mencari kegiatan yang membuat saya bahagia.</p>
+                    <input type="radio" name="q14" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q14" value="2"> Setuju <br>
+                    <input type="radio" name="q14" value="3"> Netral <br>
+                    <input type="radio" name="q14" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart14', 'quizPart13')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart15" class="card" style="display: none;">
+                <form id="eqQuizPart15" onsubmit="event.preventDefault(); showNextPart('quizPart15', 'quizPart16');">
+                    <p>15. Saya mengetahui pesan non-verbal yang saya sampaikan ke orang
+                        lain.</p>
+                    <input type="radio" name="q15" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q15" value="2"> Setuju <br>
+                    <input type="radio" name="q15" value="3"> Netral <br>
+                    <input type="radio" name="q15" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart15', 'quizPart14')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart16" class="card" style="display: none;">
+                <form id="eqQuizPart16" onsubmit="event.preventDefault(); showNextPart('quizPart16', 'quizPart17');">
+                    <p>16. Saya menampilkan diri saya dengan cara yang membuat kesan
+                        baik pada orang lain</p>
+                    <input type="radio" name="q16" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q16" value="2"> Setuju <br>
+                    <input type="radio" name="q16" value="3"> Netral <br>
+                    <input type="radio" name="q16" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart16', 'quizPart15')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart17" class="card" style="display: none;">
+                <form id="eqQuizPart17" onsubmit="event.preventDefault(); showNextPart('quizPart17', 'quizPart18');">
+                    <p>17. Ketika saya dalam suasana hati yang positif, menyelesaikan
+                        masalah adalah mudah bagi saya</p>
+                    <input type="radio" name="q17" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q17" value="2"> Setuju <br>
+                    <input type="radio" name="q17" value="3"> Netral <br>
+                    <input type="radio" name="q17" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart17', 'quizPart16')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart18" class="card" style="display: none;">
+                <form id="eqQuizPart18" onsubmit="event.preventDefault(); showNextPart('quizPart18', 'quizPart19');">
+                    <p>18. Dengan melihat ekspresi wajah mereka, saya mengenali emosi
+                        yang dialami orang-orang</p>
+                    <input type="radio" name="q18" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q18" value="2"> Setuju <br>
+                    <input type="radio" name="q18" value="3"> Netral <br>
+                    <input type="radio" name="q18" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart18', 'quizPart17')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart19" class="card" style="display: none;">
+                <form id="eqQuizPart19" onsubmit="event.preventDefault(); showNextPart('quizPart19', 'quizPart20');">
+                    <p>19. Saya tahu penyebab emosi saya berubah</p>
+                    <input type="radio" name="q19" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q19" value="2"> Setuju <br>
+                    <input type="radio" name="q19" value="3"> Netral <br>
+                    <input type="radio" name="q19" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart19', 'quizPart18')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart20" class="card" style="display: none;">
+                <form id="eqQuizPart20" onsubmit="event.preventDefault(); showNextPart('quizPart20', 'quizPart21');">
+                    <p>20. Ketika saya dalam suasana hati yang positif, saya dapat
+                        menemukan ide-ide baru
+                    </p>
+                    <input type="radio" name="q20" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q20" value="2"> Setuju <br>
+                    <input type="radio" name="q20" value="3"> Netral <br>
+                    <input type="radio" name="q20" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart20', 'quizPart19')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart21" class="card" style="display: none;">
+                <form id="eqQuizPart21" onsubmit="event.preventDefault(); showNextPart('quizPart21', 'quizPart22');">
+                    <p>21. Saya memiliki kendali atas emosi saya</p>
+                    <input type="radio" name="q21" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q21" value="2"> Setuju <br>
+                    <input type="radio" name="q21" value="3"> Netral <br>
+                    <input type="radio" name="q21" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart21', 'quizPart20')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart22" class="card" style="display: none;">
+                <form id="eqQuizPart22" onsubmit="event.preventDefault(); showNextPart('quizPart22', 'quizPart23');">
+                    <p>22. Saya dengan mudah mengenali emosi saya ketika saya
+                        mengalaminya</p>
+                    <input type="radio" name="q22" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q22" value="2"> Setuju <br>
+                    <input type="radio" name="q22" value="3"> Netral <br>
+                    <input type="radio" name="q22" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart22', 'quizPart21')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart23" class="card" style="display: none;">
+                <form id="eqQuizPart23 " onsubmit="event.preventDefault(); showNextPart('quizPart23', 'quizPart24');">
+                    <p>23. Saya memotivasi diri sendiri dengan membayangkan hasil yang
+                        baik untuk tugas yang saya ambil</p>
+                    <input type="radio" name="q23" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q23" value="2"> Setuju <br>
+                    <input type="radio" name="q23" value="3"> Netral <br>
+                    <input type="radio" name="q23" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart23', 'quizPart22')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart24" class="card" style="display: none;">
+                <form id="eqQuizPart24" onsubmit="event.preventDefault(); showNextPart('quizPart24', 'quizPart25');">
+                    <p>24. Saya memuji orang lain ketika mereka telah melakukan sesuatu
+                        dengan baik </p>
+                    <input type="radio" name="q24" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q24" value="2"> Setuju <br>
+                    <input type="radio" name="q24" value="3"> Netral <br>
+                    <input type="radio" name="q24" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart24', 'quizPart23')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart25" class="card" style="display: none;">
+                <form id="eqQuizPart25" onsubmit="event.preventDefault(); showNextPart('quizPart25', 'quizPart26');">
+                    <p>25. Saya mengetahui pesan non-verbal yang dikirim orang lain
+                    </p>
+                    <input type="radio" name="q25" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q25" value="2"> Setuju <br>
+                    <input type="radio" name="q25" value="3"> Netral <br>
+                    <input type="radio" name="q25" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart25', 'quizPart24')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart26" class="card" style="display: none;">
+                <form id="eqQuizPart26" onsubmit="event.preventDefault(); showNextPart('quizPart26', 'quizPart27');">
+                    <p>26. Ketika orang lain memberi tahu saya tentang peristiwa penting
+                        dalam hidupnya, saya hampir merasa seolah-olah saya sendiri
+                        pernah mengalami peristiwa ini</p>
+                    <input type="radio" name="q26" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q26" value="2"> Setuju <br>
+                    <input type="radio" name="q26" value="3"> Netral <br>
+                    <input type="radio" name="q26" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart26', 'quizPart25')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart27" class="card" style="display: none;">
+                <form id="eqQuizPart27" onsubmit="event.preventDefault(); showNextPart('quizPart27', 'quizPart28');">
+                    <p>27. Ketika saya merasakan perubahan emosi, saya cenderung
+                        memunculkan ide-ide baru</p>
+                    <input type="radio" name="q27" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q27" value="2"> Setuju <br>
+                    <input type="radio" name="q27" value="3"> Netral <br>
+                    <input type="radio" name="q27" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart27', 'quizPart26')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart28" class="card" style="display: none;">
+                <form id="eqQuizPart28" onsubmit="event.preventDefault(); showNextPart('quizPart28', 'quizPart29');">
+                    <p>28. Ketika saya dihadapkan dengan tantangan, saya menyerah karena
+                        saya yakin saya akan gagal</p>
+                    <input type="radio" name="q28" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q28" value="2"> Setuju <br>
+                    <input type="radio" name="q28" value="3"> Netral <br>
+                    <input type="radio" name="q28" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart28', 'quizPart27')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart29" class="card" style="display: none;">
+                <form id="eqQuizPart29" onsubmit="event.preventDefault(); showNextPart('quizPart29', 'quizPart30');">
+                    <p>29. Saya tahu apa yang orang lain rasakan hanya dengan melihat
+                        mereka</p>
+                    <input type="radio" name="q29" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q29" value="2"> Setuju <br>
+                    <input type="radio" name="q29" value="3"> Netral <br>
+                    <input type="radio" name="q29" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart29', 'quizPart28')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart30" class="card" style="display: none;">
+                <form id="eqQuizPart30" onsubmit="event.preventDefault(); showNextPart('quizPart30', 'quizPart31');">
+                    <p>30. Saya membantu orang lain merasa lebih baik ketika mereka
+                        sedang down
+                    </p>
+                    <input type="radio" name="q30" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q30" value="2"> Setuju <br>
+                    <input type="radio" name="q30" value="3"> Netral <br>
+                    <input type="radio" name="q30" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart30', 'quizPart29')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart31" class="card" style="display: none;">
+                <form id="eqQuizPart31" onsubmit="event.preventDefault(); showNextPart('quizPart31', 'quizPart32');">
+                    <p>31. Saya menggunakan suasana hati yang baik untuk membantu diri
+                        saya terus berusaha dalam menghadapi rintangan</p>
+                    <input type="radio" name="q31" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q31" value="2"> Setuju <br>
+                    <input type="radio" name="q31" value="3"> Netral <br>
+                    <input type="radio" name="q31" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart31', 'quizPart30')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart32" class="card" style="display: none;">
+                <form id="eqQuizPart32" onsubmit="event.preventDefault(); showNextPart('quizPart32', 'quizPart33');">
+                    <p>32. Saya bisa tahu bagaimana perasaan orang-orang dengan
+                        mendengarkan nada suara mereka</p>
+                    <input type="radio" name="q32" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q32" value="2"> Setuju <br>
+                    <input type="radio" name="q32" value="3"> Netral <br>
+                    <input type="radio" name="q32" value="4"> Tidak Setuju <br>
+                    <button type="button" class="prev"
+                        onclick="showNextPart('quizPart32', 'quizPart31')">Sebelumnya</button>
+                    <button type="submit">Selanjutnya</button>
+                </form>
+            </div>
+            <div id="quizPart33" class="card" style="display: none;">
+                <form id="eqQuizPart33" onsubmit="event.preventDefault();  hitungHasil();">
+                    <p>33. Sulit bagi saya memahami apa yang orang lain rasakan atas apa
+                        yang terjadi pada mereka</p>
+                    <input type="radio" name="q33" value="1" required> Sangat Setuju <br>
+                    <input type="radio" name="q33" value="2"> Setuju <br>
+                    <input type="radio" name="q33" value="3"> Netral <br>
+                    <input type="radio" name="q33" value="4"> Tidak Setuju <br>
+                    <div class="button-container">
+                        <button type="button" class="prev"
+                            onclick="showNextPart('quizPart33', 'quizPart32')">Sebelumnya</button>
+                        <button type="submit">Selesai</button>
+                    </div>
+                </form>
+            </div>
+
+            <p id="hasil"></p>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+        <div class="container">
+
+        </div>
+    </div>
+
+    <!-- Footer Start -->
+    <div class="container-fluid  text-light footer pt-5 wow fadeIn wave-bg" data-wow-delay="0.1s"
+        style="margin-top: 6rem; background-image: url(img/footer.png); background-size: cover; ">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="text-white mb-4">Hubungi Kami</h5>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>Indonesia</p>
+                    <p><i class="fa fa-phone-alt me-3"></i>08129712971927</p>
+                    <p><i class="fa fa-envelope me-3"></i>kelompok6@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="text-white mb-4">Link Cepat</h5>
+                    <a class="btn btn-link" href="welcome.php">Home</a>
+
+
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="text-white mb-4">Link Populer</h5>
+                    <a class="btn btn-link" href="welcome.php">Home</a>
+
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="text-white mb-4">Surat Baru</h5>
+                    <p>Jika anda masih bingung, bisa langsung bertanya kepada kami melalui email.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">kelompok 6</a>, All Right Reserved.
+
+                        <a class="border-bottom">CELERATES</a>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="">Home</a>
+                            <a href="">Cookies</a>
+                            <a href="">Help</a>
+                            <a href="">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-info btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/parallax/parallax.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+
+    <!-- Template Javascript -->
+
+
+
+
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+    <script>
+        // Function to handle logout
+        document.getElementById('logoutLink').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default link behavior
+            Swal.fire({
+                title: 'Logout',
+                text: 'Apakah Anda yakin ingin keluar?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to index.php
+                    window.location.href = 'index.php';
+                }
+            });
+        });
+    </script>
+    <script>
+        function updateGreeting() {
+            var greetingElement = document.getElementById("greeting");
+            var now = new Date();
+            var hour = now.getHours();
+            var name = "<?php echo $_SESSION['name']; ?>"; // Assuming PHP is used to fetch session data
+
+            var greeting;
+            if (hour >= 5 && hour < 12) {
+                greeting = "Selamat pagi, " + name;
+            } else if (hour >= 12 && hour < 16) {
+                greeting = "Selamat siang, " + name;
+            } else if (hour >= 17 && hour < 18) {
+                greeting = "Selamat sore, " + name;
+            } else {
+                greeting = "Selamat malam, " + name;
+            }
+
+            greetingElement.textContent = greeting;
+        }
+
+        // Update greeting initially
+        updateGreeting();
+
+        // Update greeting every minute
+        setInterval(updateGreeting, 60000);
+    </script>
+</body>
+
+</html>
